@@ -96,10 +96,16 @@
     text-decoration: none;
     cursor: pointer;
 }
+
+.instruction {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
 </style>
 <body>
   <!-- Trigger/Open The Modal -->
-<button id="myBtn">Instructions</button>
+<button id="myBtn" class="instruction">Instructions</button>
 
 <!-- The Modal -->
 <div id="myModal" class="modal">
@@ -169,7 +175,7 @@ var current = null,
     height = window.innerHeight-20,
     bwidth = (3/4)*width,
     bheight = (3/8)*height,
-    margin = {top: 10, right: 10, bottom: 10, left: 10},
+    margin = {top: 20, right: 10, bottom: 10, left: 0},
     space = 100,
     room = bwidth-margin.right-margin.left-space,
     centered,
