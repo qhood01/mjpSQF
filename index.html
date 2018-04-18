@@ -59,9 +59,108 @@
   stroke-width: 2px;
 }
 
+/* The Modal (background) */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content/Box */
+.modal-content {
+    background-color: #fefefe;
+    margin: 5% auto; /* 15% from the top and centered */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%; /* Could be more or less, depending on screen size */
+}
+
+/* The Close Button */
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
 </style>
 <body>
+  <!-- Trigger/Open The Modal -->
+<button id="myBtn">Instructions</button>
+
+<!-- The Modal -->
+<div id="myModal" class="modal">
+
+  <!-- Modal content -->
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <p style="margin: .25in 0in 12.0pt 0in;"><strong><span style="font-size: 24.0pt; font-family: 'Segoe UI',sans-serif; color: #24292e;">Instructions</span></strong></p>
+<p style="margin-bottom: 12.0pt;"><span style="font-size: 12.0pt; font-family: 'Segoe UI',sans-serif; color: #24292e;">The following visualization gives you the ability to look at the overall rates of stop, question, and frisk actions by the NYPD in New York City from 2003 to 2016. On the right hand side of the home page, you can select a preferred age range and sex in order to see the rate of stops by race/ethnicity for each year. Users can hover over any of the black dots on the graph to see the rate for each race/ethnicity for that year.</span></p>
+<p style="margin-bottom: 12.0pt;"><span style="font-size: 12.0pt; font-family: 'Segoe UI',sans-serif; color: #24292e;">On the left hand side, you can look at an overall map of the City, broken out by police precinct, to see how the rate of stops per individuals living in each precinct compared to one another. The map portion of this visualization gives you the ability to zoom in on any area of the city in order to see the exact location of every stop conducted by the NYPD over the course of a given year.</span></p>
+<p style="margin-bottom: 12.0pt;"><span style="font-size: 12.0pt; font-family: 'Segoe UI',sans-serif; color: #24292e;">To view the exact coordinates of stops:</span></p>
+<ul>
+<li style="color: #24292e; tab-stops: list .5in;"><span style="font-size: 12.0pt; font-family: 'Segoe UI',sans-serif;">Zoom in on the map by double-clicking, or scrolling with a mouse</span></li>
+<ul>
+<li style="color: #24292e; tab-stops: list 1.0in;"><span style="font-size: 12.0pt; font-family: 'Segoe UI',sans-serif;">The color overlaying each precinct will disappear once you have zoomed in enough</span></li>
+</ul>
+<li style="color: #24292e; margin-top: 3.0pt; tab-stops: list .5in;"><span style="font-size: 12.0pt; font-family: 'Segoe UI',sans-serif;">Click inside the precinct of interest</span></li>
+<ul>
+<li style="color: #24292e; tab-stops: list 1.0in;"><span style="font-size: 12.0pt; font-family: 'Segoe UI',sans-serif;">The precinct that you selected will be outlined in yellow</span></li>
+<li style="color: #24292e; margin-top: 3.0pt; tab-stops: list 1.0in;"><span style="font-size: 12.0pt; font-family: 'Segoe UI',sans-serif;">After clicking, a graph displaying the number of stops by year will appear to the right of the map</span></li>
+<li style="color: #24292e; margin-top: 3.0pt; tab-stops: list 1.0in;"><span style="font-size: 12.0pt; font-family: 'Segoe UI',sans-serif;">Hover over each bar to view the number of stops in a given year</span></li>
+</ul>
+<li style="color: #24292e; margin-top: 3.0pt; tab-stops: list .5in;"><span style="font-size: 12.0pt; font-family: 'Segoe UI',sans-serif;">Click the bar on the graph corresponding to the year in which you would like to see</span></li>
+<ul>
+<li style="color: #24292e; tab-stops: list 1.0in;"><span style="font-size: 12.0pt; font-family: 'Segoe UI',sans-serif;">After clicking, a series of green dots will appear on the map</span></li>
+<li style="color: #24292e; margin-top: 3.0pt; tab-stops: list 1.0in;"><span style="font-size: 12.0pt; font-family: 'Segoe UI',sans-serif;">Each dot represents a stop</span></li>
+<li style="color: #24292e; margin-top: 3.0pt; tab-stops: list 1.0in;"><span style="font-size: 12.0pt; font-family: 'Segoe UI',sans-serif;">You will see a slider above the graph on the right hand side that indicates on what day of the year the stops on the left hand side occurred</span></li>
+<li style="color: #24292e; margin-top: 3.0pt; tab-stops: list 1.0in;"><span style="font-size: 12.0pt; font-family: 'Segoe UI',sans-serif;">Click inside the precinct again to stop the visualization on that day</span></li>
+<li style="color: #24292e; margin-top: 3.0pt; tab-stops: list 1.0in;"><span style="font-size: 12.0pt; font-family: 'Segoe UI',sans-serif;">Click on the highlighted bar again to remove the stops from the screen</span></li>
+</ul>
+</ul>
+<p><span style="font-size: 12.0pt; font-family: 'Segoe UI',sans-serif; color: #24292e;">If you would like to go back to the overall rate graph by race/ethnicity and year, click outside the boundaries of any of the precincts (water or outside of the City boundaries).</span></p>
+  </div>
+
+</div>
 <script>
+// Get the modal
+var modal = document.getElementById('myModal');
+
+// Get the button that opens the modal
+var btn = document.getElementById("myBtn");
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+
+// When the user clicks on the button, open the modal
+btn.onclick = function() {
+    modal.style.display = "block";
+}
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+    modal.style.display = "none";
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
 
 var current = null,
     run = false,
@@ -119,6 +218,7 @@ d3.csv("stops.hisp.csv", function(error, data) {
 d3.csv("stops.white.csv", function(error, data) {
     if (error) throw error;
     stopsWhite = data;
+    modal.style.display = "block"
     homePage();
 });
 
@@ -154,6 +254,7 @@ var tile = d3.tile()
 var zoom = d3.zoom()
     .scaleExtent([1 << minZoom, 1 << maxZoom])
     .on("zoom", zoomed);
+
 
 var svg = d3.select('body')
           .append('svg')
