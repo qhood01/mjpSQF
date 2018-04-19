@@ -98,14 +98,33 @@
 }
 
 .instruction {
-    position: absolute;
-    top: 0;
-    left: 0;
+  position: fixed;
+  bottom: 40px;
+  right: 40px;
+  cursor:pointer;
+  -webkit-border-radius: 10;
+  -moz-border-radius: 10;
+  border-radius: 10px;
+  font-family: Arial;
+  color: white;
+  font-size: 14px;
+  background: grey;
+  padding: 10px 20px 10px 20px;
+  text-decoration: none;
+  font-weight: bold;
 }
+
+.instruction:hover {
+  background: black;
+  text-decoration: none;
+}
+
+
 </style>
 <body>
   <!-- Trigger/Open The Modal -->
-<button id="myBtn" class="instruction">Instructions</button>
+
+  <button id="myBtn" class="instruction">Instructions</button>
 
 <!-- The Modal -->
 <div id="myModal" class="modal">
@@ -173,9 +192,9 @@ var current = null,
     colors = ["#EFF3FF", "#BDD7E7", "#6BAED6", "#3182BD", "#08519C"],
     width = window.innerWidth/2,
     height = window.innerHeight-20,
-    bwidth = (3/4)*width,
-    bheight = (3/8)*height,
-    margin = {top: 20, right: 10, bottom: 10, left: 0},
+    bwidth = (4/5)*width,
+    bheight = (9/20)*height,
+    margin = {top: 10, right: 10, bottom: 10, left: 10},
     space = 100,
     room = bwidth-margin.right-margin.left-space,
     centered,
@@ -762,9 +781,9 @@ var raceLegend = d3.select("#sqf")
                .attr("transform", "translate(" + (margin.left+space) + "," + margin.top + ")")
 			       .attr("id","raceLegend");
 
-var raceColors = [{"race":"Black", "color":"#1f77b4"},
-			       {"race":"Hispanic","color":"#ff7f0e"},
-			       {"race":"White","color":"#2ca02c"}];
+var raceColors = [{"race":"Black", "color":"#1b9e77"},
+			       {"race":"Hispanic","color":"#d95f02"},
+			       {"race":"White","color":"#7570b3"}];
 
 
 rectStart = 1/4*(room);
@@ -896,14 +915,14 @@ function dragended(d) {
 function getRates() {
     var x = d3.scaleLinear().range([0, room]),
         y = d3.scaleLinear().range([bheight, 0]),
-        z = d3.scaleOrdinal(d3.schemeCategory10);
+        z = ['#1b9e77','#d95f02','#7570b3'];
 
     var line = d3.line().x(function(d) { return x(d.year); })
                         .y(function(d) { return y(d.rate); });
 
     d3.selectAll("#line").remove();
 
-    g3 = g2.append("g").attr("id","line");
+    g3 = g2.append("g").attr("id","line").attr('transform', 'translate(' + 0 + ',' + bheight/5 + ')');
     cols = [];
 for (var age = minAge; age <= maxAge; age++) {
         cnamem = "M"+age;
@@ -955,8 +974,6 @@ for (var age = minAge; age <= maxAge; age++) {
     d3.max(lineData, function(c) { return d3.max(c.values, function(d) { return d.rate; }); })
   ]);
 
-  z.domain(lineData.map(function(c) { return c.id; }));
-
   g3.append("g")
       .attr("class", "axis axis--x")
       .attr("transform", "translate(0," + bheight + ")")
@@ -980,7 +997,8 @@ for (var age = minAge; age <= maxAge; age++) {
   city.append("path")
       .attr("class", "line")
       .attr("d", function(d) { return line(d.values); })
-      .style("stroke", function(d) { return z(d.id); });
+      .style("stroke", function(d,i) { console.log(d.id); return z[i]; })
+      .style("stroke-width", 3);
 
   g3.selectAll("dot")
         .data(points)
